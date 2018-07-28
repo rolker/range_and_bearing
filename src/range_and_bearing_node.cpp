@@ -41,6 +41,18 @@ void sendRangeAndBearing(const ros::TimerEvent event)
         rangeMsg.data = range;
         rangePub.publish(rangeMsg);
         log_bag.write("/range",now,rangeMsg);
+        
+        gz4d::Point<double> northRef(0.0,1.0,0.0);
+        double n = norm(northRef)*norm(position);
+        gz4d::Angle<double,gz4d::Radian> angle  = acos(northRef.dot(position)/n);
+        gz4d::Angle<double,gz4d::Degree> angleDeg(angle);
+        double bearing = 360.0-angleDeg.value();
+        //std::cerr << angle.value() << " radians, in degrees: " << angleDeg.value() << " bearing: " << bearing << std::endl; 
+        
+        std_msgs::Float32 bearingMsg;
+        bearingMsg.data = bearing;
+        bearingPub.publish(bearingMsg);
+        log_bag.write("/bearing",now,bearingMsg);
     }
 }
 
