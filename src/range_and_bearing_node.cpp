@@ -60,7 +60,7 @@ void sendRangeAndBearing(const ros::TimerEvent event)
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "twist_to_twiststamped");
+    ros::init(argc, argv, "range_and_bearing");
     ros::NodeHandle n;
     
     boost::posix_time::ptime now = ros::WallTime::now().toBoost();
