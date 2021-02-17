@@ -63,11 +63,11 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "range_and_bearing");
     ros::NodeHandle n;
     
-    ros::Subscriber input1 = n.subscribe("/input1",10,&navSatFix1Callback);
-    ros::Subscriber input2 = n.subscribe("/input2",10,&navSatFix2Callback);
+    ros::Subscriber input1 = n.subscribe("input1",10,&navSatFix1Callback);
+    ros::Subscriber input2 = n.subscribe("input2",10,&navSatFix2Callback);
     
-    rangePub = n.advertise<std_msgs::Float32>("/range",1);
-    bearingPub = n.advertise<std_msgs::Float32>("/bearing",1);
+    rangePub = n.advertise<std_msgs::Float32>("range",1);
+    bearingPub = n.advertise<std_msgs::Float32>("bearing",1);
 
     ros::Timer timer = n.createTimer(ros::Duration(1.0),sendRangeAndBearing);
     ros::spin();
